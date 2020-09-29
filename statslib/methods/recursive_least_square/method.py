@@ -18,7 +18,7 @@ class RecursiveLeastSquare(object):
         if index == 0:
             p_matrix = dot(len(observation_vector), identity(len(params)))
             return params, p_matrix
-        params, p_matrix = self.estimate(
+        params, p_matrix = self.recursive_estimate(
             observation_vector=observation_vector, 
             dimension_matrix=dimension_matrix, 
             params=params,
@@ -50,7 +50,7 @@ class RecursiveLeastSquare(object):
             p_matrix = p_matrix - dot(dot(dot(p_matrix, dimension_matrix[i].getT()), dimension_matrix[i]), p_matrix) / (1 + dot(dot(dimension_matrix[i], p_matrix), dimension_matrix[i].getT()))
             params = params + dot(dot(p_matrix, dimension_matrix[i].getT()), observation_vector[i] - dot(dimension_matrix[i], params))
             results.append((params, p_matrix))
-        return results[-1][0]
+        return results
 
     def estimate(self, observation_vector: matrix, dimension_matrix: matrix, params: matrix, index: int = None) -> list:
-        return self.dynamic_estimate(observation_vector, dimension_matrix, params)
+        return self.dynamic_estimate(observation_vector, dimension_matrix, params)[-1][0]

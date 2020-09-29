@@ -15,8 +15,11 @@ functional_group.add_argument("--ma-order", type=int)
 functional_group.add_argument("--ma-params", type=float, nargs="+")
 functional_group.add_argument("--ar-order", type=int)
 functional_group.add_argument("--ar-params", type=float, nargs="+")
+parser_estimate.set_defaults(which="estimate")
 
 parser_graph = subparsers.add_parser("graph")
+parser_graph.add_argument("-i", "--index", type=int)
+parser_graph.set_defaults(which="graph")
 
 if __name__ == "__main__":
     args = sys.argv[1:]

@@ -19,6 +19,7 @@ python tests/lab.py estimate
 ```
 
 # Command line interface
+### Estimate subprogram
 - `-d & --data-file` : *str* -- Path to the file with the time-series dataset
 - `-l & --length` : *int* -- Length of the dataset to generate
 - `--ma-order` : *int* -- Moving average order
@@ -26,8 +27,15 @@ python tests/lab.py estimate
 - `--ar-order` : *int* -- Autoregression order
 - `--ar-params` : *list* -- Autoregression parameters
 
+### Graph subprogram
+- `-i` or `--index` : *int* -- Parameter index
+
 ## Example of usage
-The following command runs the program with overriden values for *ma_order* and *ma_params* variables, and dataset would not be generated automatically but read from *tests/datasets/test.csv* file.
+1. The following command runs the program with overriden values for *ma_order* and *ma_params* variables, and dataset would not be generated automatically but read from *tests/datasets/test.csv* file.
 ```
 python tests/lab.py estimate -d tests/datasets/test.csv --ma-order 2 --ma-params 0 0.5 0.2
+```
+2. The following command outputs the time-series plot of the 3-rd parameter values
+```
+python tests\lab.py graph --index 3
 ```
