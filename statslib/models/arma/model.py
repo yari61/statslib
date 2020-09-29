@@ -20,7 +20,8 @@ class ARMA(object):
         return self.ma.forecast(dataset=dataset, index=index) + self.ar.forecast(dataset=dataset, index=index)
 
     def difference(self, dataset, index) -> float:
-        return dataset[index] - self.forecast(dataset=dataset, index=index)
+        forecast = self.forecast(dataset=dataset, index=index)
+        return dataset[index] - forecast
 
     def sum_error_squares(self, dataset: list) -> float:
         return sum([self.difference(dataset, i)**2 for i in range(0, len(dataset))])

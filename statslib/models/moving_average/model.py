@@ -5,7 +5,7 @@ from numpy.random import normal
 class MovingAverage(object):
     __slots__ = ("_order", "_parameters")
 
-    def __init__(self, order: int, parameters):
+    def __init__(self, order: int, parameters: list):
         self._order = order
         self._parameters = parameters
 
@@ -35,7 +35,10 @@ class MovingAverage(object):
         """
 
         assert len(dimension_vector) == self.order, AssertionError(f"Length of the dimension vector {len(dimension_vector)} is not equal to the order {self.order}")
-        forecast_value = self.parameters[0] + sum([self.parameters[i + 1] * dimension_vector[i] for i in range(0, self.order)])
+        try:
+            forecast_value = self.parameters[0] + sum([self.parameters[i + 1] * dimension_vector[i] for i in range(0, self.order)])
+        except IndexError:
+            raise IndexError(f"order: {self.order}, parameters: {self.parameters}, {self._parameters}")
         return forecast_value
 
     def difference(self, dataset: list, index: int) -> list:
@@ -88,4 +91,4 @@ class MovingAverage(object):
 
     @property
     def parameters(self):
-        return self._parameters
+        return self._parameters if len(self._parameters) == self.order + 1 else self._parameters[0:self.order + 1]

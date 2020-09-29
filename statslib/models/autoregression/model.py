@@ -5,7 +5,7 @@ from numpy.random import normal
 class Autoregression(object):
     __slots__ = ("_order", "_parameters")
 
-    def __init__(self, order: int, parameters):
+    def __init__(self, order: int, parameters: list):
         self._order = order
         self._parameters = parameters
 
@@ -87,4 +87,4 @@ class Autoregression(object):
 
     @property
     def parameters(self):
-        return self._parameters
+        return self._parameters if len(self._parameters) == self.order + 1 else self._parameters[0:self.order + 1]
