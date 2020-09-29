@@ -19,12 +19,12 @@ python tests/lab.py estimate
 ```
 
 # Command line interface
-- `-d & --data-file` : *str*
-- `-l & --length` : *int*
-- `--ma-order` : *int*
-- `--ma-params` : *list*
-- `--ar-order` : *int*
-- `--ar-params` : *list*
+- `-d & --data-file` : *str* -- Path to the file with time-series dataset
+- `-l & --length` : *int* -- Length of the dataset to generate
+- `--ma-order` : *int* -- Moving average order
+- `--ma-params` : *list* -- Moving average parameters
+- `--ar-order` : *int* -- Autoregression order
+- `--ar-params` : *list* -- Autoregression parameters
 
 ## Example of usage
 The following command runs the program with overriden values for *ma_order* and *ma_params* variables, and dataset would not be generated automatically but read from *tests/datasets/test.csv* file.
