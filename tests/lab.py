@@ -1,10 +1,13 @@
 import json
+import sys
 
 import numpy
 
 from statslib.models.arma import ARMA
 from statslib.methods.recursive_least_square import RLS
 from statslib.methods.least_square import LS
+from statslib.iface.cli import parser
+from statslib.iface.read import read_dataset
 
 from tests.settings.autoregression import order as ar_order, parameters as ar_params
 from tests.settings.moving_average import order as ma_order, parameters as ma_params
@@ -27,7 +30,13 @@ def count_metrics(dataset: list, model: ARMA, method: str = None):
     return result
 
 if __name__ == "__main__":
-    length = 1000
+    args = parser.parse_args(sys.argv[1:])
+
+    length = args.length or 500
+    ar_order = args.ar_order or ar_order
+    ar_params = args.ar_params or ar_params
+    ma_order = args.ma_order or ma_order
+    ma_params = args.ma_params or ma_params
 
     for ar_order_i in range(1, ar_order + 1):
         arma.ar._order = ar_order_i
@@ -37,7 +46,7 @@ if __name__ == "__main__":
             arma.ma._parameters = ma_params
             arma.ar._parameters = ar_params
 
-            dataset = arma.generate_time_series(length=length)
+            dataset = read_dataset(args.data_file) if args.data_file else arma.generate_time_series(length=length)
             observation_vector = list_to_vector(dataset=dataset)
             dimension_matrix = numpy.matrix([arma.dimension_vector(dataset=dataset, index=i) for i in range(0, length)])
             rls_params = rls.estimate(observation_vector, dimension_matrix, list_to_vector(arma.parameters))
