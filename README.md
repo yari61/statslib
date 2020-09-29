@@ -37,5 +37,5 @@ python tests/lab.py estimate -d tests/datasets/test.csv --ma-order 2 --ma-params
 ```
 2. The following command outputs the time-series plot of the 3-rd parameter values
 ```
-python tests\lab.py graph --index 3
+python tests/lab.py graph --index 3
 ```
