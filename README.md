@@ -15,5 +15,5 @@ pip install .
 To get the result for your lab variation you just have to change parameters in `tests/settings/autoregression.py` and `tests/settings/moving_average.py` which stand for `a[0], a[1], a[2], ... , a[n]` and `b[1], b[2], ... , b[n]` parameters respectively.
 Then you can just execute the following command:
 ```
-python tests/lab.py
+python tests/lab.py estimate
 ```

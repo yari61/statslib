@@ -42,13 +42,13 @@ if __name__ == "__main__":
         arma.ar._order = ar_order_i
         for ma_order_i in range(1, ma_order + 1):
             arma.ma._order = ma_order_i
-            
+
             arma.ma._parameters = ma_params
             arma.ar._parameters = ar_params
 
             dataset = read_dataset(args.data_file) if args.data_file else arma.generate_time_series(length=length)
             observation_vector = list_to_vector(dataset=dataset)
-            dimension_matrix = numpy.matrix([arma.dimension_vector(dataset=dataset, index=i) for i in range(0, length)])
+            dimension_matrix = numpy.matrix([arma.dimension_vector(dataset=dataset, index=i) for i in range(0, len(dataset))])
             rls_params = rls.estimate(observation_vector, dimension_matrix, list_to_vector(arma.parameters))
             ls_params = ls.estimate(observation_vector, dimension_matrix)
 
