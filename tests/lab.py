@@ -15,8 +15,9 @@ ls = LS()
 rls = RLS()
 
 
-def count_metrics(dataset: list, model: ARMA):
+def count_metrics(dataset: list, model: ARMA, method: str = None):
     result = {
+        "method": method,
         "ar_order": arma.ar.order,
         "ma_order": arma.ma.order,
         "rss": arma.sum_error_squares(dataset=dataset),
@@ -26,7 +27,7 @@ def count_metrics(dataset: list, model: ARMA):
     return result
 
 if __name__ == "__main__":
-    length = 900
+    length = 1000
 
     for ar_order_i in range(1, ar_order + 1):
         arma.ar._order = ar_order_i
@@ -39,11 +40,11 @@ if __name__ == "__main__":
             dataset = arma.generate_time_series(length=length)
             observation_vector = list_to_vector(dataset=dataset)
             dimension_matrix = numpy.matrix([arma.dimension_vector(dataset=dataset, index=i) for i in range(0, length)])
-            rls_params, p_matrix = rls.estimate(observation_vector, dimension_matrix, list_to_vector(arma.parameters))
+            rls_params = rls.estimate(observation_vector, dimension_matrix, list_to_vector(arma.parameters))
             ls_params = ls.estimate(observation_vector, dimension_matrix)
 
             arma.update_parameters(vector_to_list(rls_params))
-            print(json.dumps(count_metrics(dataset=dataset, model=arma)))
+            print(json.dumps(count_metrics(dataset=dataset, model=arma, method="RLS")))
 
             arma.update_parameters(vector_to_list(ls_params))
-            print(json.dumps(count_metrics(dataset=dataset, model=arma)))
+            print(json.dumps(count_metrics(dataset=dataset, model=arma, method="LS")))
