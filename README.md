@@ -19,7 +19,7 @@ python tests/lab.py estimate
 ```
 
 # Command line interface
-- `-d & --data-file` : *str* -- Path to the file with time-series dataset
+- `-d & --data-file` : *str* -- Path to the file with the time-series dataset
 - `-l & --length` : *int* -- Length of the dataset to generate
 - `--ma-order` : *int* -- Moving average order
 - `--ma-params` : *list* -- Moving average parameters
