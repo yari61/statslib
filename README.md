@@ -17,3 +17,17 @@ Then you can just execute the following command:
 ```
 python tests/lab.py estimate
 ```
+
+# Command line interface
+- `-d & --data-file` : *str*
+- `-l & --length` : *int*
+- `--ma-order` : *int*
+- `--ma-params` : *list*
+- `--ar-order` : *int*
+- `--ar-params` : *list*
+
+## Example of usage
+The following command runs the program with overriden values for *ma_order* and *ma_params* variables, and dataset would not be generated automatically but read from *tests/datasets/test.csv* file.
+```
+python tests/lab.py estimate -d tests/datasets/test.csv --ma-order 2 --ma-params 0 0.5 0.2
+```
